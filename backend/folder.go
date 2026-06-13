@@ -23,7 +23,8 @@ func OpenFolderInExplorer(path string) error {
 
 	switch runtime.GOOS {
 	case "windows":
-		cmd = exec.Command("explorer", path)
+		// Use cmd with start to properly handle paths with spaces and special characters
+		cmd = exec.Command("cmd", "/c", "start", "", "explorer", "/root,"+path)
 	case "darwin":
 		cmd = exec.Command("open", path)
 	case "linux":
